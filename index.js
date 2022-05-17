@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const PORT = 8080;
 
-http.createServer(function (req, res) {
+const server = http.createServer(function (req, res) {
     console.log(req.url)
 
     if (req.url === "/home") {
@@ -32,7 +32,6 @@ http.createServer(function (req, res) {
 
     }
     else if (req.url.match("\.ico$")) {
-
         const iconPath = path.join(__dirname, 'pages', req.url);
         const fileStream = fs.createReadStream(iconPath);
         res.writeHead(200, { "Content-Type": "image/x-icon" });
@@ -41,7 +40,6 @@ http.createServer(function (req, res) {
     }
 
     else if (req.url.match("\.js$")) {
-
         const jsPath = path.join(__dirname, 'pages', req.url);
         const fileStream = fs.createReadStream(jsPath);
         res.writeHead(200, { "Content-Type": "application/javascript" });
@@ -52,7 +50,9 @@ http.createServer(function (req, res) {
         res.writeHead(404, { "Content-Type": "text/html" });
         res.end("<h2>No Page Found</h2>");
     }
-
-}).listen(PORT, () => {
-    console.log(`Сервер запущен http://localhost:${PORT}/home`);
 });
+
+server.listen(PORT, () => {
+    console.log(`Сервер запущен http://localhost:${PORT}`);
+});
+

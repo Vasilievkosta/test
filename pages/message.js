@@ -1,8 +1,15 @@
+// import fs from 'fs';
+
+// fs.writeFile("hello.txt", "Hello!", function (error) {
+// 	if (error) throw error; // если возникла ошибка
+// })
+
+//fs.writeFileSync('data.json', JSON.stringify(mess));
+
 let inAuthor = document.querySelector('.added__author');
 let inMessage = document.querySelector('.added__message');
 
-// const arr = [];
-let count = 0;
+let count = localStorage.length;
 
 function addMessage() {
 
@@ -10,7 +17,7 @@ function addMessage() {
 		'author': inAuthor.value,
 		'message': inMessage.value
 	}
-	// arr.push(mess);
+
 	localStorage.setItem(`data${count}`, JSON.stringify(mess));
 	console.log(JSON.parse(localStorage.getItem(`data${count}`)));
 
@@ -33,6 +40,16 @@ function addMessage() {
 	outItem.append(outAuthor);
 	outItem.append(outMessage);
 	document.querySelector('.out__list').append(outItem);
-
 }
+
 document.querySelector('.added__btn').onclick = addMessage;
+
+for (let i = 0; i < localStorage.length; i++) {
+	let key = localStorage.key(i);
+	let oneData = JSON.parse(localStorage.getItem(key));
+	let element = (`<li class="out__item">
+	<p class="out__author">${oneData.author}</p>
+	<p class="out__message">${oneData.message}</p>
+	</li>`);
+	document.writeln(element);
+}
