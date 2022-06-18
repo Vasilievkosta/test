@@ -1,10 +1,3 @@
-// import fs from 'fs';
-
-// fs.writeFile("hello.txt", "Hello!", function (error) {
-// 	if (error) throw error; // если возникла ошибка
-// })
-
-//fs.writeFileSync('data.json', JSON.stringify(mess));
 
 let inAuthor = document.querySelector('.added__author');
 let inMessage = document.querySelector('.added__message');
@@ -19,7 +12,7 @@ function addMessage() {
 	}
 
 	localStorage.setItem(`data${count}`, JSON.stringify(mess));
-	console.log(JSON.parse(localStorage.getItem(`data${count}`)));
+	// console.log(JSON.parse(localStorage.getItem(`data${count}`)));
 
 	count++;
 

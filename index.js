@@ -3,10 +3,13 @@ const fs = require('fs');
 const path = require('path');
 const PORT = 8080;
 
-const server = http.createServer(function (req, res) {
-    console.log(req.url)
+let arr = [0];
+let arrOut = [];
+let arrRes = [];
 
-    if (req.url === "/home") {
+const server = http.createServer(async (req, res) => {
+
+    if (req.url === "/home" || req.url === "/") {
         fs.readFile("pages/my-cv.html", "UTF-8", function (err, html) {
             res.writeHead(200, { "Content-Type": "text/html" });
             res.end(html);
@@ -18,6 +21,39 @@ const server = http.createServer(function (req, res) {
             res.end(html);
         });
     }
+    else if (req.url === "/numbers") {
+        fs.readFile("pages/numbers.html", "UTF-8", (err, data) => {
+            if (err) {
+                console.error(err);
+                res.end('Ошибка!');
+                return;
+            }
+            res.writeHead(200, { "Content-Type": "text/html" });
+            res.end(data);
+        });
+    }
+    else if (req.url == "/desing") {
+
+        const buffers = [];
+
+        for await (const chunk of req) {
+            buffers.push(chunk);
+        }
+        const data = Buffer.concat(buffers).toString();
+
+        arr.push(data);
+        let middle = (+arr[arr.length - 1] + +arr[arr.length - 2]) / 2;
+        arrOut = [arr[arr.length - 1], arr[arr.length - 2], middle];
+        // console.log(arrOut);
+        arrRes.push(arrOut);
+        // console.log(arrRes);
+        res.end(arrOut.join()); //отправка результата клиенту
+    }
+    else if (req.url == "/getNumber") {
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(JSON.stringify(arrRes));
+    }
+
     else if (req.url.match("\.css$")) {
         const cssPath = path.join(__dirname, 'pages', req.url);
         const fileStream = fs.createReadStream(cssPath, "UTF-8");

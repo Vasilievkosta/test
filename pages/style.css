@@ -167,3 +167,24 @@ p {
 	max-width: 566px;
 	width: 100%;
 }
+
+/* messages page */
+table {
+	border-collapse: collapse;
+	line-height: 1.1;
+	font-family: 'Open Sans', sans-serif;
+	background-color: #DCECF8;
+	color: #0C213B;
+}
+
+th {
+	padding: 10px;
+	border: 1px solid #A9E2CC;
+}
+
+td {
+	font-size: 0.8em;
+	padding: 5px 7px;
+	border: 1px solid #A9E2CC;
+	text-align: center;
+}
