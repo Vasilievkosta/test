@@ -6,6 +6,7 @@ const PORT = 8080;
 let arr = [0];
 let arrOut = [];
 let arrRes = [];
+const page404 = "<div style='background-color: #2ca5cd; width: 100%; height: 100%;'><h2 style='font-size: 6em; color: white; text-align: center; padding-top: 25vh;'>No Page Found</h2></div>";
 
 const server = http.createServer(async (req, res) => {
 
@@ -84,7 +85,7 @@ const server = http.createServer(async (req, res) => {
     }
     else {
         res.writeHead(404, { "Content-Type": "text/html" });
-        res.end("<h2>No Page Found</h2>");
+        res.end(page404);
     }
 });
 
